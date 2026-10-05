@@ -5,11 +5,15 @@ return {
     lazy = false,
 
     keys = {
-      { mode = "n", "<C-e>", "<cmd>:Ex<cr>", desc = "tree: toggle" },
+      { "<C-e>", "<cmd>NvimTreeFindFileToggle<CR>", mode = "n", desc = "tree: toggle at current file" },
     },
 
     config = function()
-      require('nvim-tree').setup({
+      -- netrwの無効化は setup より前に書くのが推奨
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+
+      require("nvim-tree").setup({
         filters = {
           dotfiles = false,
           custom = {},
@@ -17,12 +21,10 @@ return {
         git = {
           ignore = false,
         },
+        update_focused_file = {
+          enable = true, -- バッファ切り替え時にツリーが自動追従
+        },
       })
-      vim.api.nvim_set_var('loaded_netrw', 1)
-      vim.api.nvim_set_var('loaded_netrwPlugin', 1)
-      vim.api.nvim_create_user_command('Ex', function ()
-      vim.cmd('NvimTreeToggle')
-      end, {})
-    end
-  }
+    end,
+  },
 }
