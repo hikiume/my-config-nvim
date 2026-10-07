@@ -4,6 +4,10 @@ return {
     event = "VeryLazy",
 
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    keys = {
+      { "<Tab>",   "<cmd>TablineBufferNext<cr>",     desc = "次のバッファ" },
+      { "<S-Tab>", "<cmd>TablineBufferPrevious<cr>", desc = "前のバッファ" },
+    },
 
     config = function()
       require('lualine').setup({
